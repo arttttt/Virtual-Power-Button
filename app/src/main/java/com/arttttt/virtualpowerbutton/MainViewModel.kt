@@ -1,8 +1,8 @@
-package com.arttttt.screenlocker
+package com.arttttt.virtualpowerbutton
 
 import androidx.lifecycle.ViewModel
-import com.arttttt.screenlocker.utils.AccessibilityManager
-import com.arttttt.screenlocker.utils.ShortcutManager
+import com.arttttt.virtualpowerbutton.utils.AccessibilityManager
+import com.arttttt.virtualpowerbutton.utils.ShortcutManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -1,4 +1,4 @@
-package com.arttttt.screenlocker.utils
+package com.arttttt.virtualpowerbutton.utils
 
 import android.content.ComponentName
 import android.content.Context

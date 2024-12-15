@@ -1,4 +1,4 @@
-package com.arttttt.screenlocker
+package com.arttttt.virtualpowerbutton
 
 import android.accessibilityservice.AccessibilityService
 import android.view.accessibility.AccessibilityEvent

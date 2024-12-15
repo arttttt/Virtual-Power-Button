@@ -5,9 +5,9 @@
         android:enabled="true"
         android:shortcutShortLabel="@string/lock_screen">
         <intent
-            android:action="com.arttttt.screenlocker.LOCK_SCREEN"
-            android:targetClass="com.arttttt.screenlocker.LockActivity"
-            android:targetPackage="com.arttttt.screenlocker" />
+            android:action="com.arttttt.virtualpowerbutton.LOCK_SCREEN"
+            android:targetClass="com.arttttt.virtualpowerbutton.PowerButtonActivity"
+            android:targetPackage="com.arttttt.virtualpowerbutton" />
     </shortcut>
 
     <shortcut
@@ -15,8 +15,8 @@
         android:enabled="true"
         android:shortcutShortLabel="@string/power_menu">
         <intent
-            android:action="com.arttttt.screenlocker.POWER_MENU"
-            android:targetClass="com.arttttt.screenlocker.LockActivity"
-            android:targetPackage="com.arttttt.screenlocker" />
+            android:action="com.arttttt.virtualpowerbutton.POWER_MENU"
+            android:targetClass="com.arttttt.virtualpowerbutton.PowerButtonActivity"
+            android:targetPackage="com.arttttt.virtualpowerbutton" />
     </shortcut>
 </shortcuts>

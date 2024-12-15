@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.arttttt.screenlocker"
+    namespace = "com.arttttt.virtualpowerbutton"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.arttttt.screenlocker"
+        applicationId = "com.arttttt.virtualpowerbutton"
         minSdk = 29
         targetSdk = 35
         versionCode = 1

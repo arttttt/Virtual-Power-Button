@@ -1,4 +1,4 @@
-package com.arttttt.screenlocker.ui.theme
+package com.arttttt.virtualpowerbutton.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,9 +1,9 @@
-package com.arttttt.screenlocker.utils
+package com.arttttt.virtualpowerbutton.utils
 
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
-import com.arttttt.screenlocker.PowerButtonService
+import com.arttttt.virtualpowerbutton.PowerButtonService
 
 class AccessibilityManager(
     private val context: Context

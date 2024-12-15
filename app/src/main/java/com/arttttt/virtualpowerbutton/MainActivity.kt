@@ -1,8 +1,9 @@
-package com.arttttt.screenlocker
+package com.arttttt.virtualpowerbutton
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,9 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.arttttt.screenlocker.ui.theme.ScreenLockerTheme
-import com.arttttt.screenlocker.utils.AccessibilityManager
-import com.arttttt.screenlocker.utils.ShortcutManager
+import com.arttttt.virtualpowerbutton.ui.theme.ScreenLockerTheme
+import com.arttttt.virtualpowerbutton.utils.AccessibilityManager
+import com.arttttt.virtualpowerbutton.utils.ShortcutManager
 
 class MainActivity : ComponentActivity() {
     private val accessibilityManager by lazy { AccessibilityManager(this) }
@@ -43,6 +44,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enableEdgeToEdge()
+
         setContent {
             ScreenLockerTheme {
                 MainScreen()

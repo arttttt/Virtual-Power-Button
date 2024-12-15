@@ -1,4 +1,4 @@
-package com.arttttt.screenlocker.ui.theme
+package com.arttttt.virtualpowerbutton.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

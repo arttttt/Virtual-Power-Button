@@ -1,14 +1,14 @@
-package com.arttttt.screenlocker
+package com.arttttt.virtualpowerbutton
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 
-class LockActivity : ComponentActivity() {
+class PowerButtonActivity : ComponentActivity() {
 
     companion object {
-        const val ACTION_POWER_MENU = "com.arttttt.screenlocker.POWER_MENU"
+        const val ACTION_POWER_MENU = "com.arttttt.virtualpowerbutton.POWER_MENU"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
