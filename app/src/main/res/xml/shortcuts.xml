@@ -3,6 +3,7 @@
     <shortcut
         android:shortcutId="lock_screen"
         android:enabled="true"
+        android:icon="@drawable/ic_screen_lock"
         android:shortcutShortLabel="@string/lock_screen">
         <intent
             android:action="com.arttttt.virtualpowerbutton.LOCK_SCREEN"
@@ -13,6 +14,7 @@
     <shortcut
         android:shortcutId="power_menu"
         android:enabled="true"
+        android:icon="@drawable/ic_power_menu"
         android:shortcutShortLabel="@string/power_menu">
         <intent
             android:action="com.arttttt.virtualpowerbutton.POWER_MENU"
