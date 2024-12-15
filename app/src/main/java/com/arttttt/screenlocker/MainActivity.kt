@@ -6,9 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -29,18 +27,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.arttttt.screenlocker.ui.theme.ScreenLockerTheme
 import com.arttttt.screenlocker.utils.AccessibilityManager
-import com.arttttt.screenlocker.utils.DeviceAdminManager
 import com.arttttt.screenlocker.utils.ShortcutManager
 
 class MainActivity : ComponentActivity() {
-    private val deviceAdminManager by lazy { DeviceAdminManager(this) }
     private val accessibilityManager by lazy { AccessibilityManager(this) }
     private val shortcutHelper by lazy { ShortcutManager(this) }
     private val viewModel: MainViewModel by viewModels {
         object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MainViewModel(deviceAdminManager, accessibilityManager, shortcutHelper) as T
+                return MainViewModel(accessibilityManager, shortcutHelper) as T
             }
         }
     }
@@ -65,7 +61,7 @@ class MainActivity : ComponentActivity() {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = stringResource(R.string.app_name)) },
+                    title = { Text(text = stringResource(R.string.app_name)) }
                 )
             }
         ) { paddingValues ->
@@ -86,8 +82,8 @@ class MainActivity : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            if (!uiState.isAdminActive || !uiState.isAccessibilityEnabled) {
-                PermissionsRequest(uiState)
+            if (!uiState.isAccessibilityEnabled) {
+                PermissionsRequest()
             } else {
                 ShortcutSection(uiState)
             }
@@ -95,41 +91,19 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun PermissionsRequest(uiState: MainUiState) {
-        if (!uiState.isAdminActive) {
-            Text(
-                text = stringResource(R.string.admin_permission_explanation),
-                style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
+    private fun PermissionsRequest() {
+        Text(
+            text = stringResource(R.string.accessibility_permission_explanation),
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(bottom = 24.dp)
+        )
 
-            Button(
-                onClick = { viewModel.requestAdminPermission() },
-                modifier = Modifier.width(200.dp)
-            ) {
-                Text(text = stringResource(R.string.request_permission))
-            }
-        }
-
-        if (!uiState.isAccessibilityEnabled) {
-            if (!uiState.isAdminActive) {
-                Spacer(modifier = Modifier.height(24.dp))
-            }
-
-            Text(
-                text = stringResource(R.string.accessibility_permission_explanation),
-                style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
-
-            Button(
-                onClick = { viewModel.requestAccessibilityPermission() },
-                modifier = Modifier.width(200.dp)
-            ) {
-                Text(text = stringResource(R.string.request_accessibility))
-            }
+        Button(
+            onClick = { viewModel.requestAccessibilityPermission() },
+            modifier = Modifier.width(200.dp)
+        ) {
+            Text(text = stringResource(R.string.request_accessibility))
         }
     }
 

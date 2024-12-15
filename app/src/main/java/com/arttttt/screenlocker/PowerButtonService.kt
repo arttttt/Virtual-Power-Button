@@ -14,6 +14,10 @@ class PowerButtonService : AccessibilityService() {
 
     override fun onInterrupt() {}
 
+    fun lockScreen() {
+        performGlobalAction(GLOBAL_ACTION_LOCK_SCREEN)
+    }
+
     fun showPowerDialog() {
         performGlobalAction(GLOBAL_ACTION_POWER_DIALOG)
     }
