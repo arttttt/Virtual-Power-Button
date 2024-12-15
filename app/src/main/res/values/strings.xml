@@ -10,5 +10,7 @@
     <string name="accessibility_permission_required">Please enable accessibility service for power menu</string>
     <string name="lock_screen">Lock Screen</string>
     <string name="power_menu">Power Menu</string>
+    <string name="accessibility_permission_explanation">Accessibility service is required for power menu functionality</string>
+    <string name="request_accessibility">Enable Accessibility</string>
 
 </resources>
