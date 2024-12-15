@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">Screen Locker</string>
+    <string name="admin_permission_explanation">Device administrator permission is required to lock the screen. This will allow the app to lock your screen on demand.</string>
+    <string name="request_permission">Grant Permission</string>
+    <string name="create_shortcut">Create Shortcut</string>
+    <string name="shortcut_already_exists">Shortcut is already created</string>
+    <string name="admin_permission_required">Please enable Device Admin permission first</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="accessibility_service_description">Required for power menu functionality</string>
+    <string name="accessibility_permission_required">Please enable accessibility service for power menu</string>
+
+</resources>
