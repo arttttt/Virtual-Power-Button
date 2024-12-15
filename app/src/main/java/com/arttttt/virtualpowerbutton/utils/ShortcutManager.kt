@@ -3,13 +3,14 @@ package com.arttttt.virtualpowerbutton.utils
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
+import com.arttttt.virtualpowerbutton.PowerButtonActivity
 
 class ShortcutManager(
     context: Context,
 ) {
 
     private val packageManager = context.packageManager
-    private val shortcutComponentName = ComponentName(context, "${context.packageName}.LockActivity")
+    private val shortcutComponentName = ComponentName(context, PowerButtonActivity::class.java)
 
     fun createShortcut() {
         packageManager.setComponentEnabledSetting(
