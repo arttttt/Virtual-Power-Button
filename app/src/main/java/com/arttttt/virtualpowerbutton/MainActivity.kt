@@ -10,8 +10,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -26,11 +27,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.arttttt.virtualpowerbutton.ui.theme.ScreenLockerTheme
+import com.arttttt.virtualpowerbutton.ui.theme.VirtualPowerButtonTheme
 import com.arttttt.virtualpowerbutton.utils.AccessibilityManager
 import com.arttttt.virtualpowerbutton.utils.ShortcutManager
 
 class MainActivity : ComponentActivity() {
+
     private val accessibilityManager by lazy { AccessibilityManager(this) }
     private val shortcutHelper by lazy { ShortcutManager(this) }
     private val viewModel: MainViewModel by viewModels {
@@ -48,8 +50,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            ScreenLockerTheme {
-                MainScreen()
+            VirtualPowerButtonTheme {
+                val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+                MainScreen(
+                    uiState = uiState,
+                    onRequestAccessibility = viewModel::requestAccessibilityPermission,
+                    onCreateShortcut = viewModel::createShortcut
+                )
             }
         }
     }
@@ -61,74 +69,102 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    private fun MainScreen() {
+    fun MainScreen(
+        modifier: Modifier = Modifier,
+        uiState: MainUiState,
+        onRequestAccessibility: () -> Unit,
+        onCreateShortcut: () -> Unit,
+    ) {
         Scaffold(
+            modifier = modifier,
             topBar = {
                 TopAppBar(
-                    title = { Text(text = stringResource(R.string.app_name)) }
+                    title = {
+                        Text(
+                            text = stringResource(R.string.app_name),
+                        )
+                    },
                 )
             }
         ) { paddingValues ->
-            MainContent(
-                modifier = Modifier.padding(paddingValues)
-            )
-        }
-    }
-
-    @Composable
-    private fun MainContent(modifier: Modifier = Modifier) {
-        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            if (!uiState.isAccessibilityEnabled) {
-                PermissionsRequest()
-            } else {
-                ShortcutSection(uiState)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                if (!uiState.isAccessibilityEnabled) {
+                    AccessibilityPermissionRequest(
+                        onRequestPermission = onRequestAccessibility
+                    )
+                } else {
+                    ShortcutSection(
+                        isShortcutCreated = uiState.isShortcutCreated,
+                        onCreateShortcut = onCreateShortcut
+                    )
+                }
             }
         }
     }
 
     @Composable
-    private fun PermissionsRequest() {
-        Text(
-            text = stringResource(R.string.accessibility_permission_explanation),
-            style = MaterialTheme.typography.bodyLarge,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 24.dp)
-        )
-
-        Button(
-            onClick = { viewModel.requestAccessibilityPermission() },
-            modifier = Modifier.width(200.dp)
+    private fun AccessibilityPermissionRequest(
+        onRequestPermission: () -> Unit,
+        modifier: Modifier = Modifier
+    ) {
+        Column(
+            modifier = modifier,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = stringResource(R.string.request_accessibility))
+            Text(
+                text = stringResource(R.string.accessibility_permission_explanation),
+                style = MaterialTheme.typography.bodyLarge,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(
+                    horizontal = 24.dp,
+                    vertical = 16.dp,
+                )
+            )
+
+            ElevatedButton(
+                onClick = onRequestPermission,
+                modifier = Modifier.width(200.dp),
+            ) {
+                Text(text = stringResource(R.string.request_accessibility))
+            }
         }
     }
 
     @Composable
-    private fun ShortcutSection(uiState: MainUiState) {
-        Button(
-            onClick = { viewModel.createShortcut() },
-            enabled = !uiState.isShortcutCreated,
-            modifier = Modifier.width(200.dp)
+    private fun ShortcutSection(
+        isShortcutCreated: Boolean,
+        onCreateShortcut: () -> Unit,
+        modifier: Modifier = Modifier
+    ) {
+        Column(
+            modifier = modifier,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = stringResource(R.string.create_shortcut))
-        }
+            FilledTonalButton(
+                onClick = onCreateShortcut,
+                enabled = !isShortcutCreated,
+                modifier = Modifier.width(200.dp)
+            ) {
+                Text(text = stringResource(R.string.create_shortcut))
+            }
 
-        if (uiState.isShortcutCreated) {
-            Text(
-                text = stringResource(R.string.shortcut_already_exists),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp)
-            )
+            if (isShortcutCreated) {
+                Text(
+                    text = stringResource(R.string.shortcut_already_exists),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
         }
     }
 }
