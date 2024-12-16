@@ -53,8 +53,16 @@
             android:noHistory="true"
             android:exported="false" />
 
+        <activity
+            android:name=".PowerMenuActivity"
+            android:theme="@style/Theme.SystemDialog"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true" />
+
         <service
             android:name=".PowerButtonService"
+            android:icon="@drawable/ic_power"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:exported="false">
 
@@ -82,6 +90,16 @@
                 android:name="android.service.quicksettings.ACTIVE_TILE"
                 android:value="false" />
 
+        </service>
+
+        <service
+            android:name=".PowerMenuTileService"
+            android:label="@string/power_button"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
         </service>
 
     </application>
