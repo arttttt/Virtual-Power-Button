@@ -7,6 +7,7 @@ import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.core.service.quicksettings.PendingIntentActivityWrapper
 import androidx.core.service.quicksettings.TileServiceCompat
+import com.arttttt.virtualpowerbutton.utils.VibrationManager
 
 class PowerMenuTileService : TileService() {
 
@@ -38,6 +39,7 @@ class PowerMenuTileService : TileService() {
             )
 
             TileServiceCompat.startActivityAndCollapse(this, wrapper)
+            VibrationManager.vibrate(VibrationManager.Effect.Click)
         } else {
             val intent = Intent(this, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
