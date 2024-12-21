@@ -2,6 +2,7 @@ package com.arttttt.virtualpowerbutton
 
 import android.accessibilityservice.AccessibilityService
 import android.view.accessibility.AccessibilityEvent
+import com.arttttt.virtualpowerbutton.utils.VibrationManager
 
 class PowerButtonService : AccessibilityService() {
 
@@ -15,10 +16,14 @@ class PowerButtonService : AccessibilityService() {
     override fun onInterrupt() {}
 
     fun lockScreen() {
+        VibrationManager.vibrate(VibrationManager.Effect.LockScreen)
+
         performGlobalAction(GLOBAL_ACTION_LOCK_SCREEN)
     }
 
     fun showPowerDialog() {
+        VibrationManager.vibrate(VibrationManager.Effect.Click)
+
         performGlobalAction(GLOBAL_ACTION_POWER_DIALOG)
     }
 
